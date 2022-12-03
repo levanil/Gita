@@ -1,0 +1,24 @@
+html, body, head, div, ul, li, a, p, br, h1, h2, h3, h4, h5 { margin: 0px; padding: 0px; }
+
+
+.wrapperHead { overflow: hidden; margin-bottom: 20px; }
+.wrapperHead h1 { font-weight: bold; float: left; }
+.wrapperHead button { float: right; vertical-align: middle; }
+
+
+/*Tables*/
+.table { border: 1px solid #ddd; }
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td { vertical-align: middle; }
+
+
+
+.footer { padding: 15px; border-top: 1px solid #ddd; 
+  color: #333; }
+
+
+/*comsoon*/
+.comsoon { overflow: hidden; margin-left: 15%; margin-bottom: 40px; margin-top: 20px; }
+.comsoon img { float: left; margin-right: 90px; width: 400px;}
+.comsoon a { font-size: 18px; line-height: 300px; color: #337ab7; text-decoration: none; }
+
+

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Course Project</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="finalGita.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css">
+   
+  </head>
+  <body>
+
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-bottom: 30px;">
+      <div class="container">
+          <div class="navbar-header">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+              <a class="navbar-brand" href="finalGita.html">Online Shop Admin</a>
+          </div>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                  <li><a class="nav-link" href="finalGita.html">Products</a></li>
+                  <li><a class="nav-link" href="customers.html">Customers</a></li>
+                  <li><a class="nav-link" href="orders.html">Orders</a></li>
+                  <li><a class="nav-link" href="reports.html">Reports</a></li>
+              </ul>
+          </div>
+      </div>
+  </nav>
+
+    <div class="container">
+      <div class="wrapper">
+        <div class="wrapperHead">
+          <div class="products"><h1>Products</h1></div>
+          <button
+            id="showFilter"
+            class="btn btn-outline-info"
+            data-toggle="collapse"
+            data-target="#filterDiv"
+          >
+            Show Filter
+          </button>
+        </div>
+
+        <div class="collapse" id="filterDiv">
+          <div class="form-group form-inline">
+            <label>Name:&nbsp;</label>
+            <input type="text" class="form-control" id="pName" />
+            <label>&nbsp;Price between&nbsp;</label>
+            <input
+              type="number"
+              class="form-control"
+              id="minPrice"
+              placeholder="0"
+              min="0"
+            />
+            <label>&nbsp;and&nbsp;</label>
+            <input
+              type="number"
+              class="form-control"
+              id="maxPrice"
+              placeholder="10000"
+              value="10000"
+              max="10000"
+            />
+            <button
+              id="btnapply"
+              class="btn btn-warning"
+              style="margin-left: 10px"
+            >
+              Apply
+            </button>
+          </div>
+        </div>
+
+        <table id="product" class="table table-bordered table-striped">
+          <tr>
+            <th>Product Name</th>
+            <th>Product Number</th>
+            <th>Color</th>
+            <th>List Price</th>
+            <th>Modified Date</th>
+            <th>Actions</th>
+          </tr>
+        </table>
+
+        <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" style="margin-bottom: 20px;" data-toggle="modal" data-target="#addModal">
+  Create New Product
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Product</h5>
+       
+      </div>
+      <div class="modal-body">
+          <form class="needs-validation" novalidate>
+              <div class="form-group">
+                <label for="productName">Name</label>
+                <input id="productName" type="text" class="form-control" placeholder="Enter Product Name" autocomplete="off" required>
+                <div class="invalid-feedback">Please enter product name.</div>
+             
+              </div>
+        
+
+            <div class="form-outline form-group">
+              <label for="productNumber" class="form-label">Product Number</label>
+              <input type="text" class="form-control" id="productNumber" required placeholder="Ender Product Number" />
+              <div class="invalid-feedback">Please provide product number.</div>
+            </div>
+  
+              <div class="form-group">
+                  <label for="productColor">Color</label>
+                  <input id="productColor" type="text" class="form-control" placeholder="Ender Product color">
+              </div>
+  
+              <div class="form-group">
+                  <label for="listPrice">List Price</label>
+                  <input id="listPrice" type="number" class="form-control" placeholder="Ender Price" min="0" max="10000" required>
+              <div class="invalid-feedback">Please enter product price.</div>
+                
+                </div>
+
+              <div class="form-group">
+                  <label for="modifiedDate">Select Date</label>
+                  <input placeholder="Select date" type="date" id="modifiedDate" class="form-control">
+              </div>
+          
+              <button class="btn btn-success" type="submit" onclick="validateForm()" id="btnSubmit">Add Product</button>
+           
+            </form>
+  
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Product</h5>
+       
+      </div>
+      <div class="modal-body">
+          <form class="needs-validation" novalidate id="editForm">
+              <div class="form-group">
+                <label for="editProductName">Name</label>
+                <input id="editProductName" type="text" class="form-control" placeholder="Enter Product Name" autocomplete="off" required>
+                <div class="invalid-feedback">Please enter product name.</div>
+             
+              </div>
+        
+
+            <div class="form-outline form-group">
+              <label for="editProductNumber" class="form-label">Product Number</label>
+              <input type="text" class="form-control" id="editProductNumber" required placeholder="Enter Product Number" />
+              <div class="invalid-feedback">Please provide product number.</div>
+            </div>
+  
+              <div class="form-group">
+                  <label for="editProductColor">Color</label>
+                  <input id="editProductColor" type="text" class="form-control" placeholder="Enter Product color">
+              </div>
+
+              <div class="form-group">
+                <input id="editHiddenIndex" type="number" class="form-control d-none">
+            </div>
+  
+              <div class="form-group">
+                  <label for="editListPrice">List Price</label>
+                  <input id="editListPrice" type="number" class="form-control" placeholder="Ender Price" min="0" max="10000" required>
+              <div class="invalid-feedback">Please enter product price.</div>
+                
+                </div>
+
+              <div class="form-group">
+                  <label for="editModifiedDate">Select Date</label>
+                  <input placeholder="Select date" type="date" id="editModifiedDate" class="form-control">
+              </div>
+          
+              <button class="btn btn-success" type="submit" onclick="saveProduct()" id="btnSubmit" data-dismiss="modal">Save</button>
+           
+            </form>
+  
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  </div><!-- end container-->
+
+      </div>
+    </div>
+
+
+
+
+
+
+
+    
+
+    <div class="footer">
+      <div class="container">
+        © 2022 - Online Shop Admin - <a class="text-dark" href="finalGita.html">Privacy</a>
+      </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+  <script src="finalGita.js"></script>
+  
+  </body>
+</html>
